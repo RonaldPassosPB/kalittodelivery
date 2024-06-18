@@ -570,17 +570,24 @@
                 class="w-full border-2 p-1 rounded my-1"
             >
             <p class="text-red-500 hidden" id="anddress-warn">Digite seu endereço completo!</p>
+            
 
             <!--teste-->
             <p class="font-bold mt-4">Forma de pagamento:</p>
-          
-            <input 
-                type="text"
-                placeholder="Digite sua forma de pagamento..."
-                id="anddress"
-                class="w-full border-2 p-1 rounded my-1"
-            >
-            <p class="text-red-500 hidden" id="anddress-warn">Digite sua forma de pagamento!</p>
+            <div>
+            <input type="checkbox"  name="pagar" id="pix"  value="pix">
+			<label for="pix">Pix</label>
+            </div>
+            
+            <div>
+            <input type="checkbox" name="pagar"  id="dinheiro" value="dinheiro">
+			<label for="dinheiro">Dinheiro</label>
+            </div>
+            
+            
+            <input type="text"placeholder="Outras formas de pagamento..." id="payment" class="w-full border-2 p-1 rounded my-1" >
+            <p class="text-red-500 hidden" id="payment-warn">Outras formas de pagament0.</p>
+           
 
              <!--fim teste-->
 

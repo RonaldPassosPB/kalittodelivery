@@ -10,6 +10,8 @@ const addressInput = document.getElementById("anddress")
 const anddressWarn = document.getElementById("anddress-warn")
 
 
+let pagamentoSelecionados = [];
+
 let cart = [];
 
 // Abrir o modal do carrinho
@@ -140,9 +142,23 @@ addressInput.addEventListener("input", function(event){
     //
 })
 
-//Finalizar pedido
-checkoutBtn.addEventListener("click", function(){
 
+
+//Finalizar pedido
+function fazerPagamento(){
+    let pedido = document.getElementsByName("pagar")
+    for(var i=0;i<pedido.length;i++){
+         if(pedido[i].checked){
+             console.log("Fazer o pagamento: "+ pedido[i].value)
+            pagamentoSelecionados.push(pedido[i].value)
+             
+         }
+    }
+    
+ }
+
+checkoutBtn.addEventListener("click",function(){
+    
     const isOpen = checkRestauranteOpen();
     if(!isOpen){
         Toastify({
@@ -160,7 +176,6 @@ checkoutBtn.addEventListener("click", function(){
         }).showToast();
 
         return;
-
     }
 
     if(cart.length === 0)return;
@@ -172,6 +187,7 @@ checkoutBtn.addEventListener("click", function(){
 
     //Enviar o pedido para api whats
 
+
     const cartItems = cart.map((item) =>{
         return(
             ` ${item.name} Quatidade: (${item.quantity}) Preço:R$${item.price} |`
@@ -181,8 +197,9 @@ checkoutBtn.addEventListener("click", function(){
     const message = encodeURIComponent(cartItems)
     const phone = "27997990363"
 
-    window.open(`https://wa.me/${phone}?text=${message} Endereço:${addressInput.value}`, "_blank")
-
+    window.open(`https://wa.me/${phone}?text=${message} Endereço:${addressInput.value} pagamento:${pagamentoSelecionados.value}` , "_blank")
+   
+   
     cart.length = 0;
     updateCartModal();
 
@@ -192,7 +209,7 @@ checkoutBtn.addEventListener("click", function(){
 function checkRestauranteOpen(){
     const data = new Date();
     const hora = data.getHours();
-    return hora >= 18 && hora < 22;
+    return hora >= 8 && hora < 22;
     //true = Restaurante esta aberto
 }
 
